@@ -7,10 +7,7 @@
       "pageUrl": "https://YOUR-TENANT.sharepoint.com/sites/YOUR-SITE/YOUR-LIBRARY/Forms/AllItems.aspx",
       "customActions": {
         "658fdb91-24e1-4003-b1fa-6b8e52159c94": {
-          "location": "ClientSideExtension.ListViewCommandSet",
-          "properties": {
-            "pageUrl": "SitePages/BpmnViewer.aspx"
-          }
+          "location": "ClientSideExtension.ListViewCommandSet"
         }
       }
     }

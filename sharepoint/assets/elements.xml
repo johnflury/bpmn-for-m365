@@ -5,7 +5,6 @@
     RegistrationId="101"
     RegistrationType="List"
     Location="ClientSideExtension.ListViewCommandSet"
-    ClientSideComponentId="658fdb91-24e1-4003-b1fa-6b8e52159c94"
-    ClientSideComponentProperties="{&quot;pageUrl&quot;:&quot;SitePages/BpmnViewer.aspx&quot;}">
+    ClientSideComponentId="658fdb91-24e1-4003-b1fa-6b8e52159c94">
   </CustomAction>
 </Elements>

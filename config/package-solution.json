@@ -3,7 +3,7 @@
   "solution": {
     "name": "bpmn-for-m-365-client-side-solution",
     "id": "e1e45df6-40a7-4bd1-9275-b93f724ef13f",
-    "version": "1.0.0.0",
+    "version": "1.1.0.0",
     "includeClientSideAssets": true,
     "skipFeatureDeployment": false,
     "developer": {
@@ -29,7 +29,7 @@
         "title": "bpmn-for-m-365 Feature",
         "description": "The feature that activates elements of the bpmn-for-m-365 solution.",
         "id": "1fcddd70-0e49-4996-8563-420228def5e9",
-        "version": "1.0.0.0",
+        "version": "1.1.0.0",
         "assets": {
           "elementManifests": ["elements.xml"]
         }

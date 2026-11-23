@@ -9,11 +9,10 @@
   "requiresCustomScript": false,
   "items": {
     "OPEN_BPMN_VIEWER": {
-      "title": { "default": "Open in BPMN viewer" },
-      "type": "command"
-    },
-    "EDIT_BPMN_MODELER": {
-      "title": { "default": "Edit in BPMN modeler" },
+      "title": {
+        "default": "Show BPMN diagram"
+      },
+      "iconImageUrl": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgdmlld0JveD0iMCAwIDIwIDIwIj48cGF0aCBkPSJNNC41IDNDMy42NyAzIDMgMy42NyAzIDQuNXYyQzMgNy4zMyAzLjY3IDggNC41IDhINXYzLjg0bC0uMi4xNkwzIDEzLjhhMSAxIDAgMCAwIDAgMS40TDQuOCAxN2ExIDEgMCAwIDAgMS40IDBMOCAxNS4ybC4xNi0uMkgxMnYuNWMwIC44My42NyAxLjUgMS41IDEuNWgyYy44MyAwIDEuNS0uNjcgMS41LTEuNXYtMmMwLS44My0uNjctMS41LTEuNS0xLjVoLTJjLS44MyAwLTEuNS42Ny0xLjUgMS41di41SDguMTZMOCAxMy44IDYuMiAxMmwtLjItLjE2VjhoLjVDNy4zMyA4IDggNy4zMyA4IDYuNXYtMkM4IDMuNjcgNy4zMyAzIDYuNSAzek00IDQuNWMwLS4yOC4yMi0uNS41LS41aDJjLjI4IDAgLjUuMjIuNS41djJhLjUuNSAwIDAgMS0uNS41aC0yYS41LjUgMCAwIDEtLjUtLjV6bS0uMyAxMCAxLjgtMS44IDEuOCAxLjgtMS44IDEuOHptOS44LTEuNWgyYy4yOCAwIC41LjIyLjUuNXYyYS41LjUgMCAwIDEtLjUuNWgtMmEuNS41IDAgMCAxLS41LS41di0yYzAtLjI4LjIyLS41LjUtLjUiIGZpbGw9IiMzMjMxMzAiLz48L3N2Zz4=",
       "type": "command"
     }
   }

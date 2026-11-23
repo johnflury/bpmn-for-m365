@@ -7,14 +7,9 @@ import {
 
 import * as strings from 'BpmnViewerCommandSetStrings';
 
-export interface IBpmnViewerCommandSetProperties {
-  // Web-relative URL of the page hosting the BpmnForM365 web part.
-  pageUrl?: string;
-}
+export interface IBpmnViewerCommandSetProperties {}
 
-const DEFAULT_VIEWER_PAGE: string = 'SitePages/BpmnViewer.aspx';
 const VIEW_COMMAND_ID: string = 'OPEN_BPMN_VIEWER';
-const EDIT_COMMAND_ID: string = 'EDIT_BPMN_MODELER';
 
 export default class BpmnViewerCommandSet extends BaseListViewCommandSet<IBpmnViewerCommandSetProperties> {
 
@@ -24,22 +19,12 @@ export default class BpmnViewerCommandSet extends BaseListViewCommandSet<IBpmnVi
       viewCommand.title = strings.OpenInViewer;
       viewCommand.visible = false;
     }
-    const editCommand: Command = this.tryGetCommand(EDIT_COMMAND_ID);
-    if (editCommand) {
-      editCommand.title = strings.EditInModeler;
-      editCommand.visible = false;
-    }
     this.context.listView.listViewStateChangedEvent.add(this, this._onListViewStateChanged);
     return Promise.resolve();
   }
 
   public onExecute(event: IListViewCommandSetExecuteEventParameters): void {
-    let mode: string;
-    if (event.itemId === VIEW_COMMAND_ID) {
-      mode = 'view';
-    } else if (event.itemId === EDIT_COMMAND_ID) {
-      mode = 'edit';
-    } else {
+    if (event.itemId !== VIEW_COMMAND_ID) {
       return;
     }
 
@@ -48,11 +33,14 @@ export default class BpmnViewerCommandSet extends BaseListViewCommandSet<IBpmnVi
     if (!fileRef) {
       return;
     }
+    const fileName: string = String(row?.getValueByName('FileLeafRef') || fileRef.split('/').pop() || '');
 
-    const page: string = (this.properties.pageUrl || DEFAULT_VIEWER_PAGE).replace(/^\/+/, '');
-    const webUrl: string = this.context.pageContext.web.absoluteUrl.replace(/\/+$/, '');
-    const url: string = `${webUrl}/${page}?file=${encodeURIComponent(fileRef)}&mode=${mode}`;
-    window.open(url, '_blank', 'noopener');
+    // The dialog code (React, Fluent, bpmn-js) is loaded on first use only.
+    import(/* webpackChunkName: 'bpmn-dialog' */ './openBpmnDialog')
+      .then(({ openBpmnDialog }) => openBpmnDialog(this, this.context, { fileUrl: fileRef, fileName, mode: 'view' }))
+      .catch((e: unknown) => {
+        console.error('BPMN dialog could not be opened', e);
+      });
   }
 
   private _onListViewStateChanged = (args: ListViewStateChangedEventArgs): void => {
@@ -60,11 +48,9 @@ export default class BpmnViewerCommandSet extends BaseListViewCommandSet<IBpmnVi
     const visible: boolean = !!rows && rows.length === 1 &&
       /\.bpmn$/i.test(String(rows[0].getValueByName('FileLeafRef') || ''));
 
-    for (const id of [VIEW_COMMAND_ID, EDIT_COMMAND_ID]) {
-      const command: Command = this.tryGetCommand(id);
-      if (command) {
-        command.visible = visible;
-      }
+    const command: Command = this.tryGetCommand(VIEW_COMMAND_ID);
+    if (command) {
+      command.visible = visible;
     }
 
     this.raiseOnChange();

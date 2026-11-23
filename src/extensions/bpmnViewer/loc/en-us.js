@@ -1,6 +1,5 @@
 define([], function() {
   return {
-    "OpenInViewer": "Open in BPMN viewer",
-    "EditInModeler": "Edit in BPMN modeler"
+    "OpenInViewer": "Show BPMN diagram"
   }
 });

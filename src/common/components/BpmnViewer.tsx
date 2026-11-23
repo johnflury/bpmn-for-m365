@@ -12,17 +12,17 @@ import NavigatedViewer from 'bpmn-js/lib/NavigatedViewer';
 import 'bpmn-js/dist/assets/diagram-js.css';
 import 'bpmn-js/dist/assets/bpmn-js.css';
 
-import * as strings from 'BpmnForM365WebPartStrings';
-import styles from './BpmnForM365.module.scss';
-import type { IBpmnForM365Props } from './IBpmnForM365Props';
+import * as strings from 'BpmnCommonStrings';
+import styles from './BpmnViewer.module.scss';
+import type { IBpmnViewerProps } from './IBpmnViewerProps';
 
 function getErrorMessage(error: unknown): string {
   const e: { message?: string } = (error ?? {}) as { message?: string };
   return e.message || String(error);
 }
 
-export default function BpmnForM365(props: IBpmnForM365Props): React.ReactElement<IBpmnForM365Props> {
-  const { service, fileUrl, fullPage, isDarkTheme, backgroundColor, textColor } = props;
+export default function BpmnViewer(props: IBpmnViewerProps): React.ReactElement<IBpmnViewerProps> {
+  const { service, fileUrl, fullPage, fill, isDarkTheme, backgroundColor, textColor, zoomHandleRef } = props;
 
   const containerRef: React.RefObject<HTMLDivElement> = React.useRef<HTMLDivElement>(null);
   const [xml, setXml] = React.useState<string | undefined>();
@@ -73,6 +73,15 @@ export default function BpmnForM365(props: IBpmnForM365Props): React.ReactElemen
       }
     });
 
+
+    if (zoomHandleRef) {
+      const canvas = viewer.get('canvas') as { zoom: (v?: number | string) => number };
+      zoomHandleRef.current = {
+        zoomIn: () => canvas.zoom(canvas.zoom() * 1.25),
+        zoomOut: () => canvas.zoom(canvas.zoom() / 1.25),
+        fit: () => canvas.zoom('fit-viewport')
+      };
+    }
     const fit: () => void = () => {
       try {
         (viewer.get('canvas') as { zoom: (v: string) => void }).zoom('fit-viewport');
@@ -127,8 +136,9 @@ export default function BpmnForM365(props: IBpmnForM365Props): React.ReactElemen
   const showCanvas: boolean = xml !== undefined && !error;
 
   return (
-    <FluentProvider theme={isDarkTheme ? webDarkTheme : webLightTheme} style={{ background: 'transparent' }}>
-      <section className={styles.bpmnForM365}>
+    <FluentProvider theme={isDarkTheme ? webDarkTheme : webLightTheme}
+      style={fill ? { background: 'transparent', display: 'flex', flexDirection: 'column', flex: '1 1 auto', height: '100%', minHeight: 0 } : { background: 'transparent' }}>
+      <section className={`${styles.bpmnViewer} ${fill ? styles.fill : ''}`}>
         {status && <div className={styles.status}>{status}</div>}
         <div
           ref={containerRef}
@@ -137,7 +147,7 @@ export default function BpmnForM365(props: IBpmnForM365Props): React.ReactElemen
           aria-label={fileUrl}
           style={{
             display: showCanvas ? 'block' : 'none',
-            height: fullPage ? 'calc(100vh - 160px)' : undefined,
+            height: fill ? undefined : fullPage ? 'calc(100vh - 160px)' : undefined,
             background: backgroundColor,
             borderColor: textColor
           }}
