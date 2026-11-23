@@ -67,6 +67,12 @@ Technologies: SPFx 1.24.1 (Heft), React 18.3.1, Fluent UI v9, PnPjs, bpmn-js. Th
 
 **THIS CODE IS PROVIDED _AS IS_ WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.**
 
+## License
+
+Released under the [MIT License](LICENSE).
+
+This solution uses [bpmn-js](https://github.com/bpmn-io/bpmn-js) by Camunda Services GmbH / bpmn.io. Its license requires that the bpmn.io watermark shown in rendered diagrams is not removed, changed, or obscured. SharePoint Framework (`@microsoft/sp-*`) packages are covered by the [SPFx license](https://aka.ms/spfx/license).
+
 ## References
 
 - [bpmn-js](https://github.com/bpmn-io/bpmn-js)
